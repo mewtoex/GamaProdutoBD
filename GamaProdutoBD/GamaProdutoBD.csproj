@@ -68,7 +68,6 @@
     <Compile Include="Funcoes\Acao.cs" />
     <Compile Include="Funcoes\AcoesCRUD.cs" />
     <Compile Include="Funcoes\Leitura.cs" />
-    <Compile Include="Funcoes\Lista.cs" />
     <Compile Include="Funcoes\Mensagems.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
