@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="gamaProdutoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="alimento">
+          <Key>
+            <PropertyRef Name="IdAlimento" />
+          </Key>
+          <Property Name="IdAlimento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProduto" Type="int" />
+          <Property Name="perecivel" Type="nvarchar" MaxLength="1" />
+          <Property Name="validade" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="eletrodomestico">
+          <Key>
+            <PropertyRef Name="IdEletrodomestico" />
+          </Key>
+          <Property Name="IdEletrodomestico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProduto" Type="int" />
+          <Property Name="potencia" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="produto">
+          <Key>
+            <PropertyRef Name="IdProduto" />
+          </Key>
+          <Property Name="IdProduto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="255" />
+          <Property Name="unid" Type="nvarchar" MaxLength="255" />
+          <Property Name="statusProduto" Type="nvarchar" MaxLength="1" />
+          <Property Name="Quantidade" Type="int" />
+          <Property Name="Armazenagem" Type="nvarchar" MaxLength="255" />
+          <Property Name="PrecoCompra" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PrecoLucro" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PrecoVenda" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="IdCategoria" Type="int" />
+        </EntityType>
+        <Association Name="FK__alimento__IdProd__267ABA7A">
+          <End Role="produto" Type="Self.produto" Multiplicity="0..1" />
+          <End Role="alimento" Type="Self.alimento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produto">
+              <PropertyRef Name="IdProduto" />
+            </Principal>
+            <Dependent Role="alimento">
+              <PropertyRef Name="IdProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__eletrodom__IdPro__29572725">
+          <End Role="produto" Type="Self.produto" Multiplicity="0..1" />
+          <End Role="eletrodomestico" Type="Self.eletrodomestico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produto">
+              <PropertyRef Name="IdProduto" />
+            </Principal>
+            <Dependent Role="eletrodomestico">
+              <PropertyRef Name="IdProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="gamaProdutoModelStoreContainer">
+          <EntitySet Name="alimento" EntityType="Self.alimento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="eletrodomestico" EntityType="Self.eletrodomestico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="produto" EntityType="Self.produto" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__alimento__IdProd__267ABA7A" Association="Self.FK__alimento__IdProd__267ABA7A">
+            <End Role="produto" EntitySet="produto" />
+            <End Role="alimento" EntitySet="alimento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__eletrodom__IdPro__29572725" Association="Self.FK__eletrodom__IdPro__29572725">
+            <End Role="produto" EntitySet="produto" />
+            <End Role="eletrodomestico" EntitySet="eletrodomestico" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="gamaProdutoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="alimento">
+          <Key>
+            <PropertyRef Name="IdAlimento" />
+          </Key>
+          <Property Name="IdAlimento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProduto" Type="Int32" />
+          <Property Name="perecivel" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="validade" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="produto" Relationship="Self.FK__alimento__IdProd__267ABA7A" FromRole="alimento" ToRole="produto" />
+        </EntityType>
+        <EntityType Name="eletrodomestico">
+          <Key>
+            <PropertyRef Name="IdEletrodomestico" />
+          </Key>
+          <Property Name="IdEletrodomestico" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProduto" Type="Int32" />
+          <Property Name="potencia" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="produto" Relationship="Self.FK__eletrodom__IdPro__29572725" FromRole="eletrodomestico" ToRole="produto" />
+        </EntityType>
+        <EntityType Name="produto">
+          <Key>
+            <PropertyRef Name="IdProduto" />
+          </Key>
+          <Property Name="IdProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="unid" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="statusProduto" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Quantidade" Type="Int32" />
+          <Property Name="Armazenagem" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PrecoCompra" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PrecoLucro" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PrecoVenda" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IdCategoria" Type="Int32" />
+          <NavigationProperty Name="alimentoes" Relationship="Self.FK__alimento__IdProd__267ABA7A" FromRole="produto" ToRole="alimento" />
+          <NavigationProperty Name="eletrodomesticoes" Relationship="Self.FK__eletrodom__IdPro__29572725" FromRole="produto" ToRole="eletrodomestico" />
+        </EntityType>
+        <Association Name="FK__alimento__IdProd__267ABA7A">
+          <End Role="produto" Type="Self.produto" Multiplicity="0..1" />
+          <End Role="alimento" Type="Self.alimento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produto">
+              <PropertyRef Name="IdProduto" />
+            </Principal>
+            <Dependent Role="alimento">
+              <PropertyRef Name="IdProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__eletrodom__IdPro__29572725">
+          <End Role="produto" Type="Self.produto" Multiplicity="0..1" />
+          <End Role="eletrodomestico" Type="Self.eletrodomestico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="produto">
+              <PropertyRef Name="IdProduto" />
+            </Principal>
+            <Dependent Role="eletrodomestico">
+              <PropertyRef Name="IdProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="gamaProdutoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="alimentoes" EntityType="Self.alimento" />
+          <EntitySet Name="eletrodomesticoes" EntityType="Self.eletrodomestico" />
+          <EntitySet Name="produtoes" EntityType="Self.produto" />
+          <AssociationSet Name="FK__alimento__IdProd__267ABA7A" Association="Self.FK__alimento__IdProd__267ABA7A">
+            <End Role="produto" EntitySet="produtoes" />
+            <End Role="alimento" EntitySet="alimentoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__eletrodom__IdPro__29572725" Association="Self.FK__eletrodom__IdPro__29572725">
+            <End Role="produto" EntitySet="produtoes" />
+            <End Role="eletrodomestico" EntitySet="eletrodomesticoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="gamaProdutoModelStoreContainer" CdmEntityContainer="gamaProdutoEntities">
+          <EntitySetMapping Name="alimentoes">
+            <EntityTypeMapping TypeName="gamaProdutoModel.alimento">
+              <MappingFragment StoreEntitySet="alimento">
+                <ScalarProperty Name="IdAlimento" ColumnName="IdAlimento" />
+                <ScalarProperty Name="IdProduto" ColumnName="IdProduto" />
+                <ScalarProperty Name="perecivel" ColumnName="perecivel" />
+                <ScalarProperty Name="validade" ColumnName="validade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="eletrodomesticoes">
+            <EntityTypeMapping TypeName="gamaProdutoModel.eletrodomestico">
+              <MappingFragment StoreEntitySet="eletrodomestico">
+                <ScalarProperty Name="IdEletrodomestico" ColumnName="IdEletrodomestico" />
+                <ScalarProperty Name="IdProduto" ColumnName="IdProduto" />
+                <ScalarProperty Name="potencia" ColumnName="potencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="produtoes">
+            <EntityTypeMapping TypeName="gamaProdutoModel.produto">
+              <MappingFragment StoreEntitySet="produto">
+                <ScalarProperty Name="IdProduto" ColumnName="IdProduto" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="unid" ColumnName="unid" />
+                <ScalarProperty Name="statusProduto" ColumnName="statusProduto" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+                <ScalarProperty Name="Armazenagem" ColumnName="Armazenagem" />
+                <ScalarProperty Name="PrecoCompra" ColumnName="PrecoCompra" />
+                <ScalarProperty Name="PrecoLucro" ColumnName="PrecoLucro" />
+                <ScalarProperty Name="PrecoVenda" ColumnName="PrecoVenda" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
