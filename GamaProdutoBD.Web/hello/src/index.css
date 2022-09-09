@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: url('../public/fundo.jpg');
+  background-size: 100% 100%;
+
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#menu{
+  background-color: rgb(17, 8, 8);
+}
+
+.acaoColumn{
+max-width: 2px;
+
+
+}
+#tableDiv {
+  max-height: 68vh;
+  overflow: auto;
+}
+/* display-outside> || <display-inside> ] | <display-listitem> | <display-internal> | <display-box> | <display-legacy>     display: inline-block;
+*/

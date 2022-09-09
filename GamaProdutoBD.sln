@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamaProdutoBD", "GamaProdut
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamaProdutoBD.Api", "aulaGamaDBProduto.Api\GamaProdutoBD.Api.csproj", "{2BAA0FC0-98C9-4ABC-9123-2EC4C076086D}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "GamaProdutoBD.Web", "GamaProdutoBD.Web\GamaProdutoBD.Web.esproj", "{C2BDDCC2-4237-496A-BCEF-610DC4198DBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{2BAA0FC0-98C9-4ABC-9123-2EC4C076086D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BAA0FC0-98C9-4ABC-9123-2EC4C076086D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BAA0FC0-98C9-4ABC-9123-2EC4C076086D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2BDDCC2-4237-496A-BCEF-610DC4198DBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2BDDCC2-4237-496A-BCEF-610DC4198DBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2BDDCC2-4237-496A-BCEF-610DC4198DBF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C2BDDCC2-4237-496A-BCEF-610DC4198DBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2BDDCC2-4237-496A-BCEF-610DC4198DBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2BDDCC2-4237-496A-BCEF-610DC4198DBF}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
