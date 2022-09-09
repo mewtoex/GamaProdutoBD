@@ -18,11 +18,13 @@ namespace aulaGamaDBProduto.Dao
             DBClass = new DBClass();
             DBClass.db.produtoes.Add(lProduto);
             DBClass.db.SaveChanges();
-
-
-
-
             return lProduto;
+        }
+        public static object ConsultarAllApi()
+        {
+
+            DBClass = new DBClass();
+            return DBClass.db.produtoes;
         }
         public static List<produto> ConsultarAll()
         {
