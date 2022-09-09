@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
 using GamaProdutoBD;
+using IdentityModel.Client;
 
 namespace aulaGamaDBProduto.Api.Controllers
 {
@@ -12,6 +13,8 @@ namespace aulaGamaDBProduto.Api.Controllers
     [ApiController]
     public class ProdutoController : ControllerBase
     {
+
+   
         [HttpPost]
         [Route("persitirProduto")]
         public ActionResult<object> persitirProduto(produto lProduto)
