@@ -3,6 +3,7 @@ import useRequest from '../hooks/useRequest';
 import useNotification from '../hooks/useNotification';
 import { CFormInput, CForm, CButton, CTable, CTableHead, CTableRow, CTableHeaderCell, CTableBody, CTableDataCell } from '@coreui/react'
 import Modal from './Modal'
+import ModalConfirm from './ModalConfirm'
 import Menu from "./Menu";
 import Pages from "./Pages";
 
@@ -14,6 +15,7 @@ const Grid = ({ api, routes, lHeader, bodyJson }) => {
   const [action, setAction] = useState([]);
   const [objEdit, setObjEdit] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenC, setIsOpenC] = useState(false);
   const [isPartida, setIsPartida] = useState(false);
   const { notifications } = useNotification();
   const { post, get } = useRequest();
@@ -26,11 +28,6 @@ const Grid = ({ api, routes, lHeader, bodyJson }) => {
 
     post(api, bodyJson,
       (response) => {
-        notifications(response, "")
-        if (routes != "Partida")
-          api = "api/" + routes + "/get" + routes + "s";
-        else
-          api = "api/" + routes + "/get" + routes;
         getDados(true)
       }, (error) => {
         notifications(error, "")
@@ -39,6 +36,7 @@ const Grid = ({ api, routes, lHeader, bodyJson }) => {
   }
 
   const getDados = (param) => {
+    api="api/produto/ConsultarAllProduto"
     get(api,
       (response) => {
         setlist(response)
@@ -46,34 +44,17 @@ const Grid = ({ api, routes, lHeader, bodyJson }) => {
   };
 
   const persistirDados = (param) => {
-    if (routes != "Partida") {
-      var er = /[^a-zA-Z0-9]/;
-      var name = document.getElementById('namePersistir').value.replace(er, "");
-      api = "api/" + routes + "/persistir" + routes;
-      bodyJson = {
-        "id": 0,
-        "name": name
-      };
-      list.forEach(obj => {
-        if (obj.id == objEdit)
-          bodyJson.id = obj.id
-      });
-    }
-    else
       bodyJson = objEdit;
-    api = "api/" + routes + "/persistir" + routes;
+      api = "api/produto/persitirProduto";
     sendRequestPost();
+
 
   };
 
   const delteDados = (param) => {
-    api = "api/" + routes + "/delete" + routes;
-
-    bodyJson = {
-      "id": param
-    };
+    bodyJson = objEdit;
+    api = "api/produto/ApagarProduto";
     sendRequestPost();
-
   };
 
   const getDadosForm = () => {
@@ -83,6 +64,9 @@ const Grid = ({ api, routes, lHeader, bodyJson }) => {
       var send = Object;
       send.statusCode = 600;
       send.texto = "Nome não pode ser vazio";
+
+
+      
 
       notifications(send, 'warning')
     }
@@ -131,9 +115,9 @@ const Grid = ({ api, routes, lHeader, bodyJson }) => {
                   return (<tr key={key}>
                     {lHeader?.map((header, headerIndex) => {
                       if (header.prop == "Editar") {
-                        return (<CTableDataCell className="acaoColumn" key="acao">
-                          <CButton color="warning" onClick={() => [setIsOpen(true), setAction("Editar"), setIsPartida(routes == "Partida" ? true : false), setObjEdit(obj.id)]}>Editar</CButton > &ensp;
-                          <CButton color="danger" onClick={() => delteDados(obj.id)}>Excluir</CButton >
+                        return (<CTableDataCell  className="acaoColumn" key="acao">
+                          <CButton color="warning" onClick={() => [setIsOpen(true), setAction("Editar"), setIsPartida(false), setObjEdit(obj)]}>Editar</CButton > &ensp;
+                          <CButton color="danger" onClick={() => [setIsOpenC(true), setAction("Apagar"), setObjEdit(obj)]   }>Excluir</CButton >
                         </CTableDataCell  >)
                       } else
                         return (<CTableDataCell key={headerIndex}>
@@ -149,6 +133,7 @@ const Grid = ({ api, routes, lHeader, bodyJson }) => {
           <div className=" w3-half w3-row" ><br /><br /></div>
         </div>
         <Modal isOpen={isOpen} setIsOpen={setIsOpen} action={action} persistirDados={() => persistirDados()} objEdit={objEdit} setObjEdit={setObjEdit} list={list} get={get}></Modal>
+        <ModalConfirm isOpenC={isOpenC} setIsOpenC={setIsOpenC} action={action} delteDados={() => delteDados()} objEdit={objEdit} setObjEdit={setObjEdit} list={list} get={get}></ModalConfirm>
 
       </div>
     </>

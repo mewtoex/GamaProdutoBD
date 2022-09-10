@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CModalBody, CFormSelect, CModalHeader, CFormInput, CForm, CModal, CModalFooter, CButton, CModalTitle } from '@coreui/react'
 import useNotification from '../hooks/useNotification';
 
-const Modal = ({ isOpen, setIsOpen, action, persistirDados, objEdit, setObjEdit, list,  get }) => {
+const Modal = ({ isOpen, setIsOpen, action, persistirDados, objEdit, setObjEdit, list, get }) => {
   const [listTorneio, setlistTorneio] = useState([]);
   const [listTecnico, setlistTecnico] = useState([]);
   const [isSearch, setIsSearch] = useState(false);
@@ -17,26 +17,21 @@ const Modal = ({ isOpen, setIsOpen, action, persistirDados, objEdit, setObjEdit,
   const objEditChange = (param, type) => {
     console.log(objEdit)
     switch (type) {
-      case ("tecA"): objEdit.idTecnicoA = param;
+      case ("nome"): objEdit.nome = param;
         break;
-      case ("tecB"): objEdit.idTecnicoB = objEdit.idTecnicoA == param ? 0 : param;
-        if (objEdit.idTecnicoB == 0) {
-          var send = Object;
-          type = false;
-          send.statusCode = 600;
-          send.texto = "Tecnico já escolhido";
-
-          notifications(send, 'warning')
-
-        }
-        else
-          type = true;
+      case ("precoVenda"): objEdit.precoVenda = objEdit.precoCompra + ((objEdit.precoCompra*(objEdit.precoLucro /100))  );
         break;
-      case ("Tor"): objEdit.IdTorneio = param;
+      case ("unid"): objEdit.unid = param;
         break;
-      case ("pontoA"): objEdit.pontosTecnicoA = param;
+      case ("statusProduto"): objEdit.statusProduto = param;
         break;
-      case ("pontoB"): objEdit.pontosTecnicoB = param;
+      case ("quantidade"): objEdit.quantidade = param;
+        break;
+      case ("armazenagem"): objEdit.armazenagem = param;
+        break;
+      case ("precoCompra"): objEdit.precoCompra = param;
+        break;
+      case ("precoLucro"): objEdit.precoLucro = param;
         break;
     }
     //objEdit.id
@@ -48,18 +43,6 @@ const Modal = ({ isOpen, setIsOpen, action, persistirDados, objEdit, setObjEdit,
 
   };
 
-  const getDados = (api, type) => {
-    get(api,
-      (response) => {
-        if ("Tecnico" == type)
-          setlistTecnico(response.value)
-        else
-          setlistTorneio(response.value)
-
-      })
-  };
-  var name = "";
-  //getDados("api/Torneio/getTorneios", "Torneios")() =>{getDados("api/Tecnico/getTecnicos", "Tecnico") }
   console.log(objEdit)
   return (<>
     <div> { }</div>
@@ -75,37 +58,22 @@ const Modal = ({ isOpen, setIsOpen, action, persistirDados, objEdit, setObjEdit,
       </CModalHeader>
       <CModalBody>
         <CForm >
-          <label>Torneio</label>
-          <CFormSelect value={objEdit.torneio} onChange={(e) => objEditChange(e.target.value, "tor")} id="Torneio" name="Torneio">
-            <option value={objEdit.IdTorneio}  >{objEdit.torneio}</option>
-            {listTorneio?.map((obj, key) => {
-              return (
-                <option value={obj.id} >{obj.name}</option>
-              )
-            })}
-          </CFormSelect>
-          <label>Tecnico A</label>
-          <CFormSelect value={objEdit.tecnicoA} onChange={(e) => objEditChange(e.target.value, "tecA")} id="tecnicoA" name="tecnicoA" >
-            <option value={objEdit.idTecnicoA} >{objEdit.tecnicoA}</option>
-            {listTecnico?.map((obj, key) => {
-              return (
-                <option value={obj.id} >{obj.name}</option>
-              )
-            })}
-          </CFormSelect>
-          <label>Pontos A</label>
-          <CFormInput min="0" defaultValue={objEdit.pontosTecnicoA} onChange={(e) => objEditChange(e.target.value, "pontoA")} readOnly={false} id="pontosA" name="name" type="number" />
-          <label>Tecnico B</label>
-          <CFormSelect value={objEdit.tecnicoB} onselect={(e) => alert(e)} onChange={(e) => console.log(e.target.value = objEditChange(e.target.value, "tecB"))} feedbackInvalid="Não pode repetir os tecnicos" id="tecnicoB" name="tecnicoB">
-            <option value={objEdit.tecnicoB} >{objEdit.tecnicoB}</option>
-            {listTecnico?.map((obj, key) => {
-              return (
-                <option value={obj.id} >{obj.name}</option>
-              )
-            })}
-          </CFormSelect>
-          <label>Pontos B</label>
-          <CFormInput min="0" defaultValue={objEdit.pontosTecnicoB} onChange={(e) => objEditChange(e.target.value, "pontoB")} readOnly={false} id="pontosB" name="name" type="number" />
+          <label>Nome</label>
+          <CFormInput min="0" defaultValue={objEdit.nome} onChange={(e) => objEditChange(e.target.value, "nome")} readOnly={false} id="nome" name="name" type="text" />
+          <label>Unidade</label>
+          <CFormInput min="0" defaultValue={objEdit.unid} onChange={(e) => objEditChange(e.target.value, "unid")} readOnly={false} id="unid" name="unid" type="text" />
+          <label>Status Produto</label>
+          <CFormInput min="0" defaultValue={objEdit.statusProduto} onChange={(e) => objEditChange(e.target.value, "statusProduto")} readOnly={false} id="statusProduto" name="name" type="text" />
+          <label>Quantidade</label>
+          <CFormInput min="0" defaultValue={objEdit.quantidade} onChange={(e) => objEditChange(e.target.value, "quantidade")} readOnly={false} id="quantidade" name="quantidade" type="number" />
+          <label>armazenagem</label>
+          <CFormInput min="0" defaultValue={objEdit.armazenagem} onChange={(e) => objEditChange(e.target.value, "armazenagem")} readOnly={false} id="armazenagem" name="armazenagem" type="text" />
+          <label>Preco de Compra</label>
+          <CFormInput min="0" defaultValue={objEdit.precoCompra} onChange={(e) => objEditChange(e.target.value, "precoCompra")} readOnly={false} id="precoCompra" name="precoCompra" type="number" />
+          <label>Valor do  Lucro</label>
+          <CFormInput min="0" defaultValue={objEdit.precoLucro} onChange={(e) => objEditChange(e.target.value, "precoLucro")} readOnly={false} id="precoLucro" name="precoLucro" type="number" />
+          <label>Preco de Venda</label>
+          <CFormInput min="0" defaultValue={objEdit.precoVenda} onChange={(e) => objEditChange(e.target.value, "precoVenda")} readOnly={false} id="precoVenda" name="precoVenda" type="number" />
 
         </CForm>
       </CModalBody>
